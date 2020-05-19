@@ -1,7 +1,7 @@
 import time
 import logging as logger
 
-from flask import Flask, request
+from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey
@@ -30,8 +30,7 @@ class Team(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
 
-    def __init__(self, id, name):
-        self.id = id
+    def __init__(self, name):
         self.name = name
 
     def json(self):
@@ -77,10 +76,9 @@ class Person(Base):
 
 class createTeam(Resource):
     def put(self):
-        id = request.json["id"]
-        name = request.json["name"]
+        name = request.form.get("name")
 
-        newTeam = Team(name, teamId, email, contact)
+        newTeam = Team(name)
         session.add(newTeam)
         session.commit()
         return newTeam.json(), 200
@@ -134,6 +132,11 @@ class personByID(Resource):
             return {"data": "Person Not Found"}, 404
 
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 if __name__ == "__main__":
 
     # CREATE TABLE
@@ -147,6 +150,7 @@ if __name__ == "__main__":
         session.add(p1)
         session.add(p2)
         session.commit()
+        break
 
     # add api
     api.add_resource(personByID, "/api/v1/person/<int:id>")

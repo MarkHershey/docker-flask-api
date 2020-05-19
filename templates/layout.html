@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title> Who is on Lunch Break</title>
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='styles/bootstrap.min.css') }}">
+    <script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</head>
+
+<body>
+
+    <div class="jumbotron p-3">
+        <div class="well text-center">
+            <h1>Who is on Lunch Break? </h1>
+        </div>
+    </div>
+
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+
+</body>
+
+</html>
